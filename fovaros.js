@@ -1,52 +1,66 @@
 let jo = 0;
 let osszes = 0;
 let valasz = document.querySelector("#valasz");
+let a = Math.floor(Math.random()*10);
 
-const orszag = ["Magyaroszág", "Németország", "Ausztria", "Csehország", 
-            "Spanyolország", "Olaszország", "Svédország", "Finnország", 
-            "Franciaország", "Egyesült Királyság"];
-
-const varos = ["Budapest", "Berlin", "Bécs", "Prága", "Madrid", 
-            "Róma", "Stockholm", "Helsinki", "Párizs", "London"];
+let orszagok = [
+    { orszag: "Magyarország",
+        fovaros: "Budapest"},
+    { orszag: "Németország",
+        fovaros: "Berlin"},
+    { orszag: "Ausztira",
+        fovaros: "Bécs"},
+    { orszag: "Csehország",
+        fovaros: "Prága"},
+    { orszag: "Spanyolország",
+        fovaros: "Madrid"},
+    { orszag: "Olaszország",
+        fovaros: "Róma"},
+    { orszag: "Svédország",
+        fovaros: "Stockholm"},
+    { orszag: "Finnország",
+        fovaros: "Helsinki"},
+    { orszag: "Franciaország",
+        fovaros: "Párizs"},
+    { orszag: "Egyesült Krisályság",
+        fovaros: "London"}
+];
 
 function kerdez() {
-       let kerdes = orszag[Math.floor(Math.random()*10)];
+       let kerdes = orszagok[a].orszag;
         document.querySelector(".orszag").innerHTML = kerdes;
             };
-            
+
 kerdez();
 
 function ellenorzes() {
-    valasz = "";
-    if (valasz.value == "Budapest") { 
+   if (!valasz.value) {return;}
+    if (valasz.value.toUpperCase() == orszagok[a].fovaros.toUpperCase()) { 
         document.querySelector("#uzenet").innerHTML = "Helyes!";
         jo += 1;
     } else {
-        document.querySelector("#uzenet").innerHTML = "Helytelen!";
+        document.querySelector("#uzenet").innerHTML = "Nem jó!";
         kiir();
     };
-
-
-
     osszes += 1;
-    document.querySelector("#talalat").innerHTML = osszes + " / " + jo;
-   
+    document.querySelector("#talalat").innerHTML = jo + " / " + osszes;
     setTimeout(torles, 1000);
-  
 };
 
 function torles() {
+    a = Math.floor(Math.random()*10);
     kerdez();
     valasz.value = "";
 }
 
 function kiir() {
-    let orszag = "Magyarország"; //ide kell meghívni a random országot
-    let fovaros = "Budapest"; //ide kell meghívni a hozzá tartotzó várost
+    let orszag = orszagok[a].orszag;
+    let fovaros = orszagok[a].fovaros;
     uzenet.innerHTML += " " + orszag + "<p> fővárosa </p>" + fovaros + ".";
 };
 
 document.querySelector("#ellenoriz").onclick = ellenorzes;
+
 
 
 
